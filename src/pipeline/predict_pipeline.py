@@ -1,3 +1,4 @@
+import os
 import sys
 import pandas as pd
 from src.exception import CustomException
@@ -16,12 +17,16 @@ class PredictPipeline:
             model=load_object(file_path=model_path)
             preprocessor=load_object(file_path=preprocessor_path)
             print("After Loading")
-            data_scaled=preprocessor.transform(features)
+            data_scaled = self.new_method(features, preprocessor)
             preds=model.predict(data_scaled)
             return preds
         
         except Exception as e:
             raise CustomException(e,sys)
+
+    def new_method(self, features, preprocessor):
+        data_scaled=preprocessor.transform(features)
+        return data_scaled
 
 
 
